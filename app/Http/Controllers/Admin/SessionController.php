@@ -1,8 +1,13 @@
 <?php
 
+
+
 namespace App\Http\Controllers\Admin;
 
+use App\Formation;
 use App\Http\Controllers\Controller;
+use App\Role;
+use App\Session;
 use Illuminate\Http\Request;
 
 class SessionController extends Controller
@@ -14,7 +19,11 @@ class SessionController extends Controller
      */
     public function index()
     {
-        //
+       
+      //dd(Session::withCount('formations')->with('formations')->get());
+       return view('admin.sessions.index',[
+           'sessions' => Session::orderByDesc('date_start')->withCount('formations')->with('formations')->get()
+       ]);
     }
 
     /**
@@ -24,7 +33,12 @@ class SessionController extends Controller
      */
     public function create()
     {
-        //
+        $role = Role::where('name','participant')->first();
+        
+        return view('admin.sessions.create',[
+            'formations'=>Formation::all()
+        ]);
+        
     }
 
     /**
@@ -35,7 +49,18 @@ class SessionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->except(['_token']);
+     
+       
+        $session = new Session();
+        $session->name = $data['name'];
+        $session->date_start = $data['date_start'];
+        $session->save();
+        foreach ($data['id_formations'] as $key => $value) {
+            $session->formations()->syncWithoutDetaching($value);
+        }
+
+       return redirect()->route('admin.sessions.index');  
     }
 
     /**
@@ -46,7 +71,7 @@ class SessionController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -57,7 +82,10 @@ class SessionController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.sessions.edit',[
+            'formation'=>Formation::where('id',$id),
+           'participants'=>[],
+        ]);
     }
 
     /**

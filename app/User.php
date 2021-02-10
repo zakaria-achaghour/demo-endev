@@ -71,4 +71,15 @@ class User extends Authenticatable
        } 
          
     }
+
+    // relations
+    public function formations(){
+        return $this->hasMany('App\Formation');
+    }
+    
+
+    public function sessions()
+    {
+        return $this->belongsToMany('App\Session', 'session_user', 'user_id', 'session_id')->withTimestamps()->withPivot(['reste', 'avance', 'date_demande_attestion']);
+    }
 }

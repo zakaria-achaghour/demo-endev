@@ -30,12 +30,16 @@ Route::get('/user/{user}/edit', 'UserController@edit')->name('edit');
 Route::put('/user/{user}', 'UserController@change_password')->name('change_password');
 
 
+// formations
+Route::resource('/formations', 'FormationController');
+// participant
+Route::resource('/participants', 'ParticipantController');
+Route::get('/generate-recu-inscription/{id}','ParticipantController@generateRecuInscription')->name('generate-recu-inscription');
 
 
 // partie admin 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware(['can:user.manage'])->group(function(){
 
     Route::resource('/users', 'UsersController')->except(['show']);
-
-
+    Route::resource('/sessions', 'SessionController');
 });

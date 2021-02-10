@@ -15,9 +15,11 @@ class CreateFormationsTable extends Migration
     {
         Schema::create('formations', function (Blueprint $table) {
             $table->id();
+            $table->string('ref')->unique();
             $table->string('designation');
             $table->float('prix');
             $table->integer('vh');
+            $table->longText('description');
             $table->timestamps();
         });
     }

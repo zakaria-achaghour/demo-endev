@@ -10,7 +10,7 @@
                 <div class="card-body">
                
                     
-                
+                    <div class=" table-wrapper-scroll-y my-custom-scrollbar">
 
                  <table class="table">
                      <thead>
@@ -60,6 +60,7 @@
                          @endforeach
                      </tbody>
                  </table>
+                    </div>
                 </div>
             </div>
         </div>

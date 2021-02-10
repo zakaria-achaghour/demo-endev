@@ -9,20 +9,21 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts 
-    <script src="{ asset('js/app.js') }}" defer></script>
-    <script src="{ asset('js/bootstrap.js') }}" defer></script>
--->
+    
+ 
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <!-- Styles
-    <link href="{ asset('css/bootstrap.css') }}" rel="stylesheet"> -->
+    <!-- Styles-->
+  
     <link href="{{ asset('css\bootstrap.min.css') }}" rel="stylesheet">
-    
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+   
+
+    <link href="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
+
 
 
 </head>
@@ -40,7 +41,18 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('home') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('formations.index') }}">Formations</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.sessions.index') }}">Sessions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('participants.index') }}">Participant</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -106,6 +118,8 @@
     <script src="{{ asset('js/jQuery.js') }}" ></script>
     <script src="{{ asset('js/bootstrap.min.js') }}" ></script>
     <script src="{{ asset('js/app.js') }}" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+
 
 
     </body>
