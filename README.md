@@ -6,6 +6,13 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
+### start project
+## 1 : php artisan migration
+## 2 : php artisan db:seed
+## 1 : admin@admin.com  password
+
+
+
 
 ## About Laravel
 
