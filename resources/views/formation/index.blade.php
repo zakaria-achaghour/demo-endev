@@ -3,14 +3,16 @@
 @section('content')
 
 <div class="container  text-center  w-60">
+    @can('session.manage', User::class)
     <a class="btn btn-sm btn-success float-right" href="{{ route('formations.create') }}">Add</a>
+    @endcan
      <h4 class="mt-2 text-muted">Formations</h4>
     
     <hr>
 </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center text-center">
                 @forelse ($formations as $formation)
                     <div class="col-md-4 col-lg-4 col-sm-6 col-xs-2 mb-1" >
                         <div class="card">
@@ -27,6 +29,7 @@
                             </div>
                             <div class="card-footer">
                                 <a class="btn btn-sm btn-info" href="{{ route('formations.show',['formation'=>$formation->id]) }}">see..</a>
+                                @can('session.manage', User::class)
                                 <a class="btn  btn-sm btn-warning" href="{{ route('formations.edit', ['formation' => $formation->id]) }}">Update</a>
     
                                 <form style="display: inline"   method="POST"
@@ -36,6 +39,7 @@
                                 @csrf
                                     <button type="submit" class="btn btn-sm btn-danger" >Delete</button>
                                     </form>  
+                             @endcan
                             </div>
                         </div>
                     </div>

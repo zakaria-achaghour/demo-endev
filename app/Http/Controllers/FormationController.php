@@ -21,7 +21,12 @@ class FormationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function mes_formations(){
-        return view('formation.mes_formation',['participant'=>Auth::user()]);
+            $user = Auth::user();
+           
+        foreach ($user->sessions as $session) {
+            $formations = $session->formations; 
+        }
+        return view('formation.mes_formation',['formations'=>$formations]);
     }
     public function index()
     {
