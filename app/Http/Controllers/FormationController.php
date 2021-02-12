@@ -6,15 +6,23 @@ use App\Formation;
 use DateTime;
 use Facade\Ignition\Exceptions\ViewException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class FormationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function mes_formations(){
+        return view('formation.mes_formation',['participant'=>Auth::user()]);
+    }
     public function index()
     {
         

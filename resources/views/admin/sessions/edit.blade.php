@@ -24,8 +24,9 @@
                  
                    
                 </ul>
-                <form  method="POST" action="{{ route('admin.sessions.update') }}" >
+                <form  method="POST" action="{{ route('admin.sessions.update',['session'=>$session->id]) }}" >
                     @csrf
+                    @method('PUT')
                 <div class="tab-content">
                     <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                         <div class="card-body">

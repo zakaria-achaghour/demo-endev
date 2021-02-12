@@ -13,8 +13,11 @@
             
 
                 <div class="card-body">
-                    <div class=" table-wrapper-scroll-y my-custom-scrollbar">
-                        <table class="table">
+                    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                    <br>
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar" id="my-custom-scrollbar">
+                    <table  class="table table-striped table-bordered table-sm" cellspacing="0"
+                    width="100%">
                             <thead class="thead-dark">
                               <tr>
                                 <th scope="col">#</th>
@@ -23,11 +26,11 @@
                                 <th scope="col">Date de naissance</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Telephone</th>
-                                <th colspan="3">Actions</th>
+                                <th colspan="4">Actions</th>
                                 
                               </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="myTable">
                                 @forelse ($participants as $participant)
                                 <tr>
                                    
@@ -38,14 +41,27 @@
                                     <td> {{$participant->email }} </td>
                                     <td> {{$participant->phone }} </td>
                                     <td>
-                                <a class="btn  btn-sm btn-warning" href="{{ route('participants.edit', ['participant' => $participant->id]) }}">Update</a>
+                                <a class="btn  btn-sm btn-outline-warning" href="{{ route('participants.edit', ['participant' => $participant->id]) }}">Update</a>
 
                                     </td>
-                                   <td>2</td>
                                    <td>
-                                       <a class="btn btn-block btn-outline-primary btn-secondary" target="_blank"
+                                <a class="btn  btn-sm btn-outline-info" href="{{ route('participants.show', ['participant' => $participant->id]) }}">show</a>
+
+                                   </td>
+                                   <td>
+                                       <a class="btn btn-sm btn-outline-primary " target="_blank"
                                     href="{{ route('generate-recu-inscription', ['id'=> $participant->id ]) }}">Recu
                                 </a></td>
+                                <td>
+                                  
+                                <form style="display: inline"   method="POST"
+                                class="fm-inline"
+                                action="{{ route('participants.destroy', ['participant' => $participant->id]) }}">
+                                @method('DELETE')
+                                @csrf
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" >Delete</button>
+                                    </form>
+                                </td>
                                   </tr>
                                 
                                 @empty

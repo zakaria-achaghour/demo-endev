@@ -22,7 +22,7 @@ class SessionController extends Controller
        
       //dd(Session::withCount('formations')->with('formations')->get());
        return view('admin.sessions.index',[
-           'sessions' => Session::orderByDesc('date_start')->withCount('formations')->with('formations')->get()
+           'sessions' => Session::orderByDesc('date_start')->withCount(['formations','users'])->get()
        ]);
     }
 
@@ -82,9 +82,10 @@ class SessionController extends Controller
      */
     public function edit($id)
     {
+
         return view('admin.sessions.edit',[
-            'formation'=>Formation::where('id',$id),
-           'participants'=>[],
+            'session'=>Session::find($id),
+            'formations'=>Formation::all()
         ]);
     }
 
@@ -97,7 +98,19 @@ class SessionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->except(['_token']);
+     
+       
+        $session = new Session();
+        $session->name = $data['name'];
+        $session->date_start = $data['date_start'];
+        $session->save();
+        $session->formations()->detach();
+        foreach ($data['id_formations'] as $key => $value) {
+            $session->formations()->syncWithoutDetaching($value);
+        }
+
+       return redirect()->route('admin.sessions.index');  
     }
 
     /**

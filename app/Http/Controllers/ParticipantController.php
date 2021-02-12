@@ -93,7 +93,7 @@ class ParticipantController extends Controller
                
             }
         }
-      
+       
       // $this->generateRecuInscription($user,$data2['reste'],$data2['avance'],$formation);
         // todo : Send Email To User include cin&password
         Mail::to($user->email)->send(new ParticipantSessionMarkdown($user,$designation));
@@ -108,7 +108,8 @@ class ParticipantController extends Controller
      */
     public function show($id)
     {
-        //
+
+        return view('participant.show',['participant'=>User::find($id)]);
     }
 
     /**
@@ -149,10 +150,12 @@ class ParticipantController extends Controller
         $participant->phone = $request->input('phone');
         $participant->cin = $request->input('cin');
         $participant->save();
-        $participant->sessions()->sync([$id=>['reste'=>$request->input('reste'),'avance'=>$request->input('avance')]]);
+        $participant->sessions()->detach();
+        $participant->sessions()->attach([$id=>['reste'=>$request->input('reste'),'avance'=>$request->input('avance')]]);
        
 
-       return redirect()->route('');
+        return redirect()->route('participants.index');
+
     }
 
     /**
@@ -162,8 +165,16 @@ class ParticipantController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+
+    {  
+        $user = User::find($id);
+        $user->sessions()->detach();
+        $user->roles()->detach();
+        $user = User::destroy($id);
+       
+        
+        return redirect()->route('participants.index');
+
     }
 
 
@@ -185,11 +196,7 @@ class ParticipantController extends Controller
         }
     }
        
-       /* $sumReste = DB::table('participant_session')->where('participant_id', $participantId)->sum('reste');
-        $sumAvance = DB::table('participant_session')->where('participant_id', $participantId)->sum('avance');
-        $sumPriceFormations = Db::select("SELECT sum(f.prix) AS price_Formations , COUNT(f.id) AS count_formations from  formations f , formation_session fs, 
-        participant_session ps WHERE f.id = fs.formation_id AND fs.session_id = ps.session_id AND ps.participant_id =${participantId}")[0];
-        */
+     
         $pdf = PDF::loadView('fichier.recu', [
             'participant' => $participant,
             'reste' => $reste,
@@ -197,6 +204,6 @@ class ParticipantController extends Controller
             'formation' =>$formation
         ]);
         return $pdf->download($participant->name.'.pdf');
-       // return $pdf->download('recu.pdf');
+       
     }
 }

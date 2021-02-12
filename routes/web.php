@@ -14,13 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 
 
@@ -32,14 +30,16 @@ Route::put('/user/{user}', 'UserController@change_password')->name('change_passw
 
 // formations
 Route::resource('/formations', 'FormationController');
+Route::get('/mes_formations', 'FormationController@mes_formations')->name('mes_formations')->middleware(['can:mesFormations']);
+
 // participant
 Route::resource('/participants', 'ParticipantController');
 Route::get('/generate-recu-inscription/{id}','ParticipantController@generateRecuInscription')->name('generate-recu-inscription');
 
 
 // partie admin 
-Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware(['can:user.manage'])->group(function(){
+Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
 
-    Route::resource('/users', 'UsersController')->except(['show']);
-    Route::resource('/sessions', 'SessionController');
+    Route::resource('/users', 'UsersController')->middleware(['can:user.manage'])->except(['show']);
+    Route::resource('/sessions', 'SessionController')->middleware(['can:session.manage']);
 });

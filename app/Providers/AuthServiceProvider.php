@@ -32,6 +32,14 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasRole('admin');
         });
 
+        Gate::define('session.manage',function($user){
+            return $user->hasAnyRoles(['admin','user']);
+        });
+
+        
+        Gate::define('mesFormations',function($user){
+            return $user->hasRole('participant');
+        });
         
        // for the future if you wanna add more actions 
         /*Gate::define('user.manage',function($user){

@@ -10,9 +10,11 @@
                 <div class="card-body">
                
                     
-                    <div class=" table-wrapper-scroll-y my-custom-scrollbar">
-
-                 <table class="table">
+                    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                    <br>
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar" id="my-custom-scrollbar">
+                    <table  class="table table-striped table-bordered table-sm" cellspacing="0"
+                    width="100%">
                      <thead>
                          <tr>
                              <th></th>

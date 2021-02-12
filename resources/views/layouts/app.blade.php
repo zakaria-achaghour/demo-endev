@@ -41,18 +41,30 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('home') }}">Home</a>
                         </li>
+                       
+                      @else
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('formations.index') }}">Formations</a>
                         </li>
+                        @can('mesFormations', User::class)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('mes_formations') }}">Mes Formations</a>
+                        </li>
+                        @endcan
+
+                        @can('session.manage', User::class)
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.sessions.index') }}">Sessions</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('participants.index') }}">Participant</a>
                         </li>
+                        @endcan
+                        @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -62,11 +74,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
+                          
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

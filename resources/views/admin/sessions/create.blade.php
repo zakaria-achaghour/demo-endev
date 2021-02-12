@@ -6,8 +6,12 @@
     <h4 class="m-2 text-muted">Create Sessions</h4>
     <hr>
 </div>
-    <div class="row justify-content-center">
+  
+   
+
+    <div  class="row justify-content-center">
         <div class="col-md-8">
+        
             <div id="smartwizard">
 
                 <ul class="nav">
@@ -33,22 +37,20 @@
                             @include('admin.sessions.form')
 
                         </div>
-                        <div class="card-footer">
                        
-                        </div>
                     </div>
                     <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
+                        <div class="card-body">
                         @include('admin.sessions.select_formation')
-                       
-                        <div class="card-footer">
-                       
                         </div>
+                      
                     </div>
                     
                 </div>
             </form>
+            <div class="card-footer"></div>
             </div>
-            <div class="card-header"></div>
+           
         </div>
    
 </div>
