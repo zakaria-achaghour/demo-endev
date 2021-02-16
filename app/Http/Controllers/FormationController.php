@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Formation;
+use App\Mail\DemandeAttestation;
+use App\Role;
+use App\User;
 use DateTime;
 use Facade\Ignition\Exceptions\ViewException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class FormationController extends Controller
@@ -26,8 +30,41 @@ class FormationController extends Controller
         foreach ($user->sessions as $session) {
             $formations = $session->formations; 
         }
-        return view('formation.mes_formation',['formations'=>$formations]);
+        return view('formation.mes_formation',['formations'=>$formations,'user'=>$user]);
     }
+
+
+
+    
+    public  function demande_attestation($id){
+        $user2 = User::with(['roles' => function($q){
+            $q->where('name', 'admin');
+        }])->first();
+           
+        $user = Auth::user();
+      
+        foreach ($user->sessions as $session) {
+           foreach($session->formations as $formation){
+                if($formation->id == $id ){
+                    $designation = $formation->designation;
+                    $ref = $formation->ref;
+                    $user->sessions()->sync([$session->id=>['date_demande_attestion'=> new DateTime('today'),'status'=>'demande']]);
+
+                     Mail::to($user2->email)->send(new DemandeAttestation($user,$designation,$ref));
+                 return redirect()->back();
+           }  
+          
+        }
+       
+    }
+
+   
+    }
+    
+  
+
+
+
     public function index()
     {
         
@@ -62,15 +99,6 @@ class FormationController extends Controller
          // add data to champs other
         // $data['slug']=Str::slug($data['title'],'-');
         
-        
-        // Upload Picture for current Post
-        // if($request->hasFile('picture')) {
-           
-        //    $path = $request->file('picture')->store('Formations');
-        //   // $path = $request->file('picture')->storeAs('Formations',Str::slug($data['designation'],'-').'.'.$request->file('picture')->guessExtension());
-        //     $image = new Image(['path' => $path]);
-        //     $formation->image()->save($image);
-        // }
         $request->session()->flash('status' , 'formations created ');
         return redirect()->route('formations.index');
     }
@@ -96,7 +124,7 @@ class FormationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {// dd(Formation::findOrFail($id));
+    {
         return view('formation.edit', [
             'formation' => Formation::findOrFail($id)
         ]);
@@ -114,20 +142,7 @@ class FormationController extends Controller
     {
         $formation = Formation::findOrFail($id);
        
-        // Upload Picture for current Post
-        // if($request->hasFile('picture')) {
-        //    $path = $request->file('picture')->store('Formations');
-        //   if($formation->image){
-        //       Storage::delete($formation->image->path);
-        //    $formation->image->path = $path;
-        //    $formation->image->save();
-        //   }else{
-        //    $formation->image()->save(Image::make(['path' => $path]));
-           
-        //   }
-            
-         
-        // }
+      
        
        $formation->designation = $request->input('designation'); 
        $formation->prix = $request->input('prix'); 
@@ -136,6 +151,7 @@ class FormationController extends Controller
        $formation->save();
 
        $request->session()->flash('status' , 'formation updated ');
+
        return redirect()->route('formations.index');
     }
 
@@ -148,7 +164,9 @@ class FormationController extends Controller
     public function destroy($id)
     {
         Formation::destroy($id);
-      //  $request->session()->flash('status' , 'formations deleted ');
+      
         return redirect()->route('formations.index');
     }
+
+
 }

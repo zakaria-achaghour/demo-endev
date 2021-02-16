@@ -15,8 +15,8 @@ class CreateFormationSessionTable extends Migration
     {
         Schema::create('formation_session', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('formation_id')->constrained();
-            $table->foreignId('session_id')->constrained();
+            $table->foreignId('formation_id')->constrained()->onDelete('cascade');
+            $table->foreignId('session_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

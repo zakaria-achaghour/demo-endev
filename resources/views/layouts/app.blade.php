@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -85,6 +85,18 @@
                                     @can('user.manage', User::class)
                                     <a class="dropdown-item" href="{{ route('admin.users.index') }}">
                                         users managment
+                                    </a>
+                                     
+                                    @endcan
+                                    @can('session.manage', User::class)
+                                    <a class="dropdown-item" href="{{ route('admin.attestation') }}">
+                                        Attestation
+                                        <?php   $nb_demande = DB::table('users')
+                                        ->join('session_user','users.id','session_user.user_id')
+                                        ->where('status','demande')
+                                        ->count()
+                                        ;?>
+                                        <span class="badge badge-pill badge-danger">{{ $nb_demande }}</span>
                                     </a>
                                     @endcan
 

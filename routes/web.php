@@ -31,15 +31,24 @@ Route::put('/user/{user}', 'UserController@change_password')->name('change_passw
 // formations
 Route::resource('/formations', 'FormationController');
 Route::get('/mes_formations', 'FormationController@mes_formations')->name('mes_formations')->middleware(['can:mesFormations']);
+Route::put('/demande_attestation/{formation}', 'FormationController@demande_attestation')->name('demande_attestation');
+
+
+
 
 // participant
 Route::resource('/participants', 'ParticipantController');
 Route::get('/generate-recu-inscription/{id}','ParticipantController@generateRecuInscription')->name('generate-recu-inscription');
 
 
+
 // partie admin 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
 
     Route::resource('/users', 'UsersController')->middleware(['can:user.manage'])->except(['show']);
+    Route::get('/attestation', 'UsersController@attestation')->name('attestation')->middleware(['can:session.manage']);
+   
+Route::post('/generate_attestation','UsersController@generate_attestation')->name('generate_attestation')->middleware(['can:session.manage']);;
+    
     Route::resource('/sessions', 'SessionController')->middleware(['can:session.manage']);
 });

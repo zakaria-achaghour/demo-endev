@@ -26,7 +26,15 @@
 
                 </div>
                 <div class="card-footer">
-                    <div class="btn btn-outline-danger">Get Attestation</div>
+                  <form style="display: inline"   method="POST"
+                                class="fm-inline"
+                                action="{{ route('demande_attestation', ['formation' => $formation->id]) }}">
+                                @method('PUT')
+                                @csrf
+                                    <button type="submit" class="btn btn-sm btn-danger" >Demande</button>
+                                    </form> 
+               
+                   
                 </div>
             </div>
             @endforeach

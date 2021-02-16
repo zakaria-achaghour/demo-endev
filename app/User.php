@@ -80,6 +80,6 @@ class User extends Authenticatable
 
     public function sessions()
     {
-        return $this->belongsToMany('App\Session', 'session_user', 'user_id', 'session_id')->withTimestamps()->withPivot(['reste', 'avance', 'date_demande_attestion']);
+        return $this->belongsToMany('App\Session', 'session_user', 'user_id', 'session_id')->withTimestamps()->withPivot(['reste', 'avance', 'date_demande_attestion','status']);
     }
 }

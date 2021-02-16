@@ -17,6 +17,9 @@ class SessionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function nombre_demande(){
+        
+    }
     public function index()
     {
        
@@ -101,13 +104,13 @@ class SessionController extends Controller
         $data = $request->except(['_token']);
      
        
-        $session = new Session();
+        $session = Session::find($id);
         $session->name = $data['name'];
         $session->date_start = $data['date_start'];
         $session->save();
         $session->formations()->detach();
         foreach ($data['id_formations'] as $key => $value) {
-            $session->formations()->syncWithoutDetaching($value);
+            $session->formations()->attach($value);
         }
 
        return redirect()->route('admin.sessions.index');  

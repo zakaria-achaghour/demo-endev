@@ -68,12 +68,7 @@ class ParticipantController extends Controller
            
 
             $data = $request->except(['_token','avance','reste','session']);
-            //dd($data);
-           /* $data['cin'] = $request->input('cin');
-            $data['name'] = $request->input('name');
-            $data['email'] = $request->input('email');
-            $data['birthday'] = $request->input('birthday');
-            $data['phone'] = $request->input('phone');*/
+          
             $data['password'] = Hash::make('password');
             $user = User::create($data);
 

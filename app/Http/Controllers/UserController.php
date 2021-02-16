@@ -44,7 +44,8 @@ class UserController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->phone = $request->input('phone');
-        $user->birthday = $request->input('birhtday');
+        $user->birthday = $request->input('birhtday')->format('d/m/Y');
+       
         $user->save();
         
             $request->session()->flash('success' , 'Information  Updated  ');
