@@ -18,7 +18,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Date de debut</th>
-                <th scope="col">Nombre de Formations</th>
+                <th scope="col">Nom de Formations</th>
                 <th scope="col">Nombre de Personne</th>
                 
                 <th colspan="4">Actions</th>
@@ -32,7 +32,11 @@
                     <td> </td>
                     <td> {{ $session->name }} </td>
                     <td> {{ $session->date_start }} </td>
-                    <td> {{ $session->formations_count}}</td>
+                    <?php
+                        foreach ($session->formations as $formation) {
+                        ?>
+                    <td> {{ $formation->designation }}</td>
+                    <?php  }?>
                     <td>  {{ $session->users_count}} </td>
                     <td> </td>
                     <td>

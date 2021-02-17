@@ -6,6 +6,9 @@
             <div class="form-check form-check-inline">
                 <label class="form-check-label">
                     <input class="form-check-input selectBox" type="checkbox" value="{{ $formation->id }}" name="id_formations[]" 
+                      @if($formation->id == $formation_id )
+                    checked
+                    @endif
                   ><?php  //if ($session->formations->pluck('id')->contains($formation->id)) checked endif?>
                     {{ $formation->designation }}
                 </label>

@@ -22,10 +22,13 @@ class SessionController extends Controller
     }
     public function index()
     {
+
+        $sessions = Session::orderByDesc('date_start')->with('formations')->withCount('users')->get();
+       // dd($sessions);
        
       //dd(Session::withCount('formations')->with('formations')->get());
        return view('admin.sessions.index',[
-           'sessions' => Session::orderByDesc('date_start')->withCount(['formations','users'])->get()
+           'sessions' => $sessions
        ]);
     }
 
@@ -85,10 +88,21 @@ class SessionController extends Controller
      */
     public function edit($id)
     {
+        
+        $session = Session::find($id);
+        $formation_id=$session->formations->first();
+        //dd($formation_id->id);
+        //dd($session->formations->first());
+        /*$tab = [];
+        foreach ($session->formations() as $formation) {
+           $tab +=$formation->id;
+        }
 
+        dd($tab);*/
         return view('admin.sessions.edit',[
-            'session'=>Session::find($id),
-            'formations'=>Formation::all()
+            'session'=>$session,
+            'formations'=>Formation::all(),
+            'formation_id'=>$formation_id->id
         ]);
     }
 
