@@ -50,7 +50,7 @@
                                     action="{{ route('admin.generate_attestation') }}">
                                      @csrf
                                     <input type="hidden" value="{{ $participant->session_id }}" name="session">
-                                    <input type="hidden" value="{{ $participant->id }}" name="participant">
+                                    <input type="hidden" value="{{ $participant->user_id }}" name="participant">
 
                                     <button class="btn btn-sm btn-outline-info " target="_blank" type="submit">imprimer</button>
                                     </form>

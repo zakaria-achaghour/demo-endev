@@ -7,6 +7,7 @@ use App\Role;
 use App\Session;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use PDF;
@@ -78,7 +79,7 @@ class ParticipantController extends Controller
             
             $role = Role::where('name','participant')->first();
             $user->roles()->sync($role);
-            $user->sessions()->syncWithoutDetaching([$data2['session_id']=>['reste'=>$data2['reste'],'avance'=>$data2['avance']]]);
+            $user->sessions()->sync([$data2['session_id']=>['reste'=>$data2['reste'],'avance'=>$data2['avance']]]);
 
            
          foreach ($user->sessions as $session) {
@@ -113,17 +114,20 @@ class ParticipantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($participant)
     {
-        $user = User::find($id);
+     
+       $user = User::find($participant);
+       //$sessions = Session::orderByDesc('date_start')->has('formations')->get();
        
-       // dd($user->sessions()->get()[0]->pivot->avance);
+       $session =$user->sessions()->first();
+     
        $sessions = Session::orderByDesc('date_start')->has('formations')->get();
-       // dd($user->sessions);
+
         return view('participant.edit',[
             'participant' => $user , 
-            'session' =>  $user->sessions()->get()[0],
-            'sessions' =>$sessions
+            'session' => $session,
+            'sessions'=>$sessions
             ]);
     }
 
@@ -138,15 +142,17 @@ class ParticipantController extends Controller
     {
        // dd(User::find($id)->sessions->pivot->avance);
         $participant = User::find($id);
+     
         //$data = $request->except(['_token']);
         $participant->name = $request->input('name');
         $participant->email = $request->input('email');
         $participant->birthday = $request->input('birthday');
         $participant->phone = $request->input('phone');
         $participant->cin = $request->input('cin');
+        
+      
         $participant->save();
-        $participant->sessions()->detach();
-        $participant->sessions()->attach([$id=>['reste'=>$request->input('reste'),'avance'=>$request->input('avance')]]);
+        $participant->sessions()->sync([$request->input('session')=>['reste'=>$request->input('reste'),'avance'=>$request->input('avance')]]);
        
 
         return redirect()->route('participants.index');

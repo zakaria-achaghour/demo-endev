@@ -25,6 +25,7 @@ class UsersController extends Controller
         ->join('session_user','users.id','session_user.user_id')
         ->where('status','demande')
         ->get();
+       
     
         /**
          * session_id
@@ -36,8 +37,11 @@ class UsersController extends Controller
 
 
     public function generate_attestation(Request $request){
+       
        $data= $request->only(['session','participant']);
-       $user = User::find($data['participant']);
+       $id= (int)$data['participant'];
+       $sessions_id = (int)$data['session'];
+       $user = User::find($id);
        
 
 
@@ -91,10 +95,12 @@ class UsersController extends Controller
 
            // Contenu de Formation
             // note the reduction in font and different box position
+            // utf8 pdf
+            $str = iconv('UTF-8', 'windows-1252', $session->description);
 
             $pdf->SetFontSize('20');
-            $pdf->SetXY(90,146);
-            $pdf->Cell(150, 10,$session->description, 0, 0, 'C');
+            $pdf->SetXY(85,146);
+            $pdf->Cell(150, 10,$str, 0, 0, 'C');
 
          
            
@@ -104,20 +110,8 @@ class UsersController extends Controller
 
 
 
-    //     $user = User::find($id)->with(['sessions',''])
-    //   dd($user);
-       /* foreach ($user->sessions as $session) {
-            foreach($session->formations as $formation){
-                 if($formation->id == $id ){
-                     $designation = $formation->designation;
-                     $ref = $formation->ref;
-                     $user->sessions()->sync([$session->id=>['reste'=>$session->pivot->reste,'avance'=>$session->pivot->avance,'date_demande_attestion'=> new DateTime('today'),'status'=>'demande']]);
- 
-                      Mail::to($user2->email)->send(new DemandeAttestation($user,$designation,$ref));
-                  return redirect()->back();
-            }  
-           
-         }*/
+            $user->sessions()->sync([$sessions_id=>['status'=>'imprimer']]);
+
     }
 
     /**
