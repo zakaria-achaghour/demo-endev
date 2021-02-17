@@ -16,8 +16,8 @@
                         @csrf
                    
                     @include('formation.form')
-                    <button class="btn btn-info " type="submit">Create Formation</button>
-                    <a class="btn btn-warning" href="{{ route('formations.index') }}">Back</a>
+                    <button class="btn btn-info " type="submit">Créer </button>
+                    <a class="btn btn-warning" href="{{ route('formations.index') }}">Retour</a>
             </form>
                 </div>
             </div>

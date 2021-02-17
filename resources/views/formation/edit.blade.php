@@ -17,8 +17,8 @@
                       
                    
                     @include('formation.form')
-                    <button class="btn btn-success " type="submit">Update </button>
-                    <a class="btn btn-warning" href="{{ route('formations.index') }}">Back</a>
+                    <button class="btn btn-success " type="submit">Mettre à jour </button>
+                    <a class="btn btn-warning" href="{{ route('formations.index') }}">Retour</a>
             </form>
                 </div>
             </div>

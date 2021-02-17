@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container  text-center  w-60">
-    <a class="btn btn-sm btn-success float-right" href="{{ route('participants.create') }}">Add</a>
+    <a class="btn btn-sm btn-success float-right" href="{{ route('participants.create') }}">Ajouter</a>
 
     <h4 class="m-2 text-muted">Participant</h4>
     <hr>
@@ -41,11 +41,11 @@
                                     <td> {{$participant->email }} </td>
                                     <td> {{$participant->phone }} </td>
                                     <td>
-                                <a class="btn  btn-sm btn-outline-warning" href="{{ route('participants.edit', ['participant' => $participant->id]) }}">Update</a>
+                                <a class="btn  btn-sm btn-outline-warning" href="{{ route('participants.edit', ['participant' => $participant->id]) }}">Éditer</a>
 
                                     </td>
                                    <td>
-                                <a class="btn  btn-sm btn-outline-info" href="{{ route('participants.show', ['participant' => $participant->id]) }}">show</a>
+                                <a class="btn  btn-sm btn-outline-info" href="{{ route('participants.show', ['participant' => $participant->id]) }}">Afficher </a>
 
                                    </td>
                                    <td>
@@ -59,7 +59,7 @@
                                 action="{{ route('participants.destroy', ['participant' => $participant->id]) }}">
                                 @method('DELETE')
                                 @csrf
-                                    <button type="submit" class="btn btn-sm btn-outline-danger" >Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" >Effacer</button>
                                     </form>
                                 </td>
                                   </tr>

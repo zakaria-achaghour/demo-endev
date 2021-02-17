@@ -13,7 +13,7 @@
                        @include('admin.users.form')
                       
                 
-                       <button class="btn btn-info" type="submit">Add User</button>
+                       <button class="btn btn-info" type="submit">Créer  </button>
                     </div>
                     </form>
                 </div>

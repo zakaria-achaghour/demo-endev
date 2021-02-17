@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Users <a class="btn btn-success btn-sm float-right" href="{{ route('admin.users.create') }}">add user</a></div>
+                <div class="card-header">Users <a class="btn btn-success btn-sm float-right" href="{{ route('admin.users.create') }}">Ajouter User</a></div>
 
                 <div class="card-body">
                
@@ -42,7 +42,7 @@
                             </td>
                             @can('user.manage', User::class)
                              <td > 
-                                 <a class="btn btn-sm btn-info" href="{{ route('admin.users.edit', ['user' => $user->id]) }}">Edit</a>
+                                 <a class="btn btn-sm btn-info" href="{{ route('admin.users.edit', ['user' => $user->id]) }}">Éditer</a>
                                 
                                  
                                  <form style="display: inline"   method="POST"
@@ -51,7 +51,7 @@
                                   @csrf
                                  @method('DELETE')
                          
-                          <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                          <button class="btn btn-sm btn-danger" type="submit">Effacer</button>
                          </form>
 
 

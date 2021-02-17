@@ -27,10 +27,10 @@
                        
                         <div class="row">
                             <div class="col-md-6 col-sm-12">
-                                <button type="submit" class="btn btn-warning btn-sm mt-1" style="width: 100%">Update</button>
+                                <button type="submit" class="btn btn-warning btn-sm mt-1" style="width: 100%">Mettre à jour</button>
                             </div>
                             <div class="col-md-6 col-sm-12 mt-1">
-                                <a href="{{ route('participants.index') }}" class="btn btn-danger btn-sm" style="width: 100%">Annulier</a>
+                                <a href="{{ route('participants.index') }}" class="btn btn-danger btn-sm" style="width: 100%">Retour</a>
                             </div>
                            
                         </div>

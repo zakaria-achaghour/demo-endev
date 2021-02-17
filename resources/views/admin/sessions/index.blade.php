@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container  text-center mt-2 w-60">
-    <a class="btn btn-sm btn-success float-right" href="{{ route('admin.sessions.create') }}">Add</a>
+    <a class="btn btn-sm btn-success float-right" href="{{ route('admin.sessions.create') }}">Ajouter</a>
     <h4 class="m-4 text-muted">Sessions</h4>
     <hr>
 </div>
@@ -40,11 +40,11 @@
                     <td>  {{ $session->users_count}} </td>
                     <td> </td>
                     <td>
-                <a class="btn  btn-sm btn-outline-warning" href="{{ route('admin.sessions.edit', ['session' => $session->id]) }}">Update</a>
+                <a class="btn  btn-sm btn-outline-warning" href="{{ route('admin.sessions.edit', ['session' => $session->id]) }}">Éditer</a>
 
                     </td>
                    <td>
-                <a class="btn  btn-sm btn-outline-info" href="{{ route('admin.sessions.show', ['session' => $session->id]) }}">show</a>
+                <a class="btn  btn-sm btn-outline-info" href="{{ route('admin.sessions.show', ['session' => $session->id]) }}">Afficher</a>
 
                    </td>
                
