@@ -55,14 +55,16 @@ class SessionController extends Controller
      */
     public function store(Request $request)
     {
+        
         $data = $request->except(['_token']);
      
        
         $session = new Session();
         $session->name = $data['name'];
         $session->date_start = $data['date_start'];
+        $session->status = $data['status'];
         $session->save();
-        foreach ($data['id_formations'] as $key => $value) {
+        foreach ($data['formations'] as $key => $value) {
             $session->formations()->syncWithoutDetaching($value);
         }
 
@@ -90,6 +92,7 @@ class SessionController extends Controller
     {
         
         $session = Session::find($id);
+        
         $formation_id=$session->formations->first();
         //dd($formation_id->id);
         //dd($session->formations->first());
@@ -99,10 +102,16 @@ class SessionController extends Controller
         }
 
         dd($tab);*/
+      
+        /*$id_formations=[];
+        foreach ($session->formations as $key => $formation) {
+            $id_formations [$key]=$formation->id;
+        }*/
+       
+
         return view('admin.sessions.edit',[
             'session'=>$session,
-            'formations'=>Formation::all(),
-            'formation_id'=>$formation_id->id
+            'formations'=>Formation::all()
         ]);
     }
 
@@ -121,9 +130,10 @@ class SessionController extends Controller
         $session = Session::find($id);
         $session->name = $data['name'];
         $session->date_start = $data['date_start'];
+        $session->status = $data['status'];
         $session->save();
         $session->formations()->detach();
-        foreach ($data['id_formations'] as $key => $value) {
+        foreach ($data['formations'] as $key => $value) {
             $session->formations()->attach($value);
         }
 

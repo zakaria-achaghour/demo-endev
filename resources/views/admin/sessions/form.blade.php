@@ -16,5 +16,13 @@
  
 </div>
 
+<div class="form-group">
+  <label for="status">statu</label>
+  <select class="form-control" name="status" id="status">
+    <option value="pas en cours">Pas En Cours</option>
+    <option value="en cours">En cours</option>
+    <option value="fini">Fini</option>
+  </select>
+</div>
 
 

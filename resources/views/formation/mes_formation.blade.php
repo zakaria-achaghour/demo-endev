@@ -5,6 +5,14 @@
     <h4 class="m-2 text-muted">Mes Formations</h4>
     <hr>
 </div>
+<div class="container my-2 text-center">
+
+  @if(session()->has('message'))
+      <div class="alert alert-success">
+          {{ session()->get('message') }}
+      </div>
+  @endif
+</div>
 <div class="container">
 	 <div class="row">
         

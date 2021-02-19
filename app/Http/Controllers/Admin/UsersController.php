@@ -112,6 +112,8 @@ class UsersController extends Controller
 
             $user->sessions()->sync([$sessions_id=>['status'=>'imprimer']]);
 
+      return back()->with('message','Attestaion imprimer avec success');
+
     }
 
     /**

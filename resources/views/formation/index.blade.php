@@ -21,8 +21,8 @@
                             </div>
                                 
                             <div class="card-body">
-                               <h5> {{ $formation->prix }}</h5>
-                               <p><span> {{ $formation->vh }}</span></p>
+                               <h5> {{ $formation->prix }} MAD</h5>
+                               <p><span> {{ $formation->vh }} H</span></p>
 
                                 
                                

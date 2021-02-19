@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/test',function (){
+    return [
+        'first'=> Crypt::decrypt('eyJpdiI6ImlwMVB3RlUrOUpTdm1XajdjT0RYREE9PSIsInZhbHVlIjoiaTZXSEIxZzl5NHlBTVg5amFLTG9uUT09IiwibWFjIjoiODFlYjQwNWY5MzBjZWJlZDI3YjlkNGViZjk5MGUyYjIyOWJkMjJjNzQ1MjBiMTJjZjBhNGQ2NGMxMGY5NDc4ZSJ9'),
+        'second'=> Crypt::encrypt('secret')
+        
+    ] ;
+});
+
 
 
 

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use PDF;
-
+use Illuminate\Support\Str;
 class ParticipantController extends Controller
 {
     /**
@@ -70,7 +70,8 @@ class ParticipantController extends Controller
 
             $data = $request->except(['_token','avance','reste','session']);
           
-            $data['password'] = Hash::make('password');
+            $password = Str::random(10);
+            $data['password'] = Hash::make($password);
             $user = User::create($data);
 
             $data2['session_id'] = $request->input('session');
@@ -92,7 +93,7 @@ class ParticipantController extends Controller
        
       // $this->generateRecuInscription($user,$data2['reste'],$data2['avance'],$formation);
         // todo : Send Email To User include cin&password
-        Mail::to($user->email)->send(new ParticipantSessionMarkdown($user,$designation));
+        Mail::to($user->email)->send(new ParticipantSessionMarkdown($user,$designation,$password));
         return redirect()->route('participants.index');
     }
 

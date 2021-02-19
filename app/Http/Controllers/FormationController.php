@@ -25,8 +25,9 @@ class FormationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function mes_formations(){
+
             $user = Auth::user();
-           
+           //  $restes = $session->pivot->reste;
         foreach ($user->sessions as $session) {
             $formations = $session->formations; 
         }
@@ -51,7 +52,7 @@ class FormationController extends Controller
                     $user->sessions()->sync([$session->id=>['date_demande_attestion'=> new DateTime('today'),'status'=>'demande']]);
 
                      Mail::to($user2->email)->send(new DemandeAttestation($user,$designation,$ref));
-                 return redirect()->back();
+                 return redirect()->back()->with('message', 'demande envoyé avec success');;
            }  
           
         }

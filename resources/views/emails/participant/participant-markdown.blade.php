@@ -6,8 +6,9 @@ Votre inscription à la formation  **{{ $designation }}** a bien été confirmé
 @component('mail::panel')
     **Email** :{{ $user->email }}
 @endcomponent
+
 @component('mail::panel')
-    **PASSWORD** : password
+    **PASSWORD** : {{ $password }}
 @endcomponent
 
 @component('mail::button',['url'=>  route('login') ])

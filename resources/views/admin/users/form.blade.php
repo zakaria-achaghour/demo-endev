@@ -28,7 +28,6 @@
 </div>
 <div class="form-group row">
 
-
 <label for="roles" class="col-md-4 col-form-label text-md-right">Roles</label>
 <div class="col-md-6">
 @foreach ($roles as $role)
