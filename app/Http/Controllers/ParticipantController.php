@@ -21,21 +21,9 @@ class ParticipantController extends Controller
      */
     public function index()
     {
-        //  $users = User::with(['roles' => function($q){
-        //      $q->where('name', 'participant');
-        //  }])->get();
-        // Role::with('users')->where('name', 'admin')->get();
-
-        // get role
+        
         $role = Role::where('name','participant')->first();
-
-       /* $sessions= Session::with('users'); 
-        dd($sessions); 
-        $users = $sessions->users;
-      */
        
-       
-        //dd($role->users()->with('sessions'));
         return view('participant.index',[
             'participants'=>$role->users
             
@@ -50,7 +38,8 @@ class ParticipantController extends Controller
     public function create()
     {
 
-        $sessions = Session::orderByDesc('date_start')->has('formations')->get();
+        $sessions = Session::orderByDesc('date_start')->where('status','pas en cours')->has('formations')->get();
+       
         return view('participant.create',[
             
             'sessions'=>$sessions
@@ -70,7 +59,7 @@ class ParticipantController extends Controller
 
             $data = $request->except(['_token','avance','reste','session']);
           
-            $password = Str::random(10);
+            $password = Str::random();
             $data['password'] = Hash::make($password);
             $user = User::create($data);
 

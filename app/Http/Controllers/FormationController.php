@@ -29,14 +29,15 @@ class FormationController extends Controller
             $user = Auth::user();
            //  $restes = $session->pivot->reste;
         foreach ($user->sessions as $session) {
-            $formations = $session->formations; 
+            $session = $session;
+            $formations = $session->formations;
+            
         }
-        return view('formation.mes_formation',['formations'=>$formations,'user'=>$user]);
+      
+       
+        return view('formation.mes_formation',['formations'=>$formations,'user'=>$user,'reste'=>$session->pivot->reste]);
     }
 
-
-
-    
     public  function demande_attestation($id){
         $user2 = User::with(['roles' => function($q){
             $q->where('name', 'admin');

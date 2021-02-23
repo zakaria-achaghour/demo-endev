@@ -155,7 +155,6 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-
        
         $data = $request->only(['name','email']);
         $data['password'] = Hash::make('password');

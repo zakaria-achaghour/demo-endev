@@ -34,6 +34,7 @@
 
                 </div>
                 <div class="card-footer">
+                  @if(!$reste)
                   <form style="display: inline"   method="POST"
                                 class="fm-inline"
                                 action="{{ route('demande_attestation', ['formation' => $formation->id]) }}">
@@ -42,7 +43,7 @@
                                     <button type="submit" class="btn btn-sm btn-danger" >Demande</button>
                                     </form> 
                
-                   
+                   @endif
                 </div>
             </div>
             @endforeach

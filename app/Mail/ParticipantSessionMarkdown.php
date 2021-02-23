@@ -27,7 +27,6 @@ class ParticipantSessionMarkdown extends Mailable
         $this->password = $password;
     }
 
-
     /**
      * Build the message.
      *

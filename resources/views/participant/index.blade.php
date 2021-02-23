@@ -13,7 +13,11 @@
             
 
                 <div class="card-body">
-                    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                    <div class="row">
+                       <div class="col-md-6 mx-auto">  <input class="form-control" id="myInput" type="text" placeholder="Search.."></div>
+                    
+                    </div>
+                  
                     <br>
                     <div class="table-wrapper-scroll-y my-custom-scrollbar" id="my-custom-scrollbar">
                     <table  class="table table-striped table-bordered table-sm" cellspacing="0"
@@ -26,7 +30,7 @@
                                 <th scope="col">Date de naissance</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Telephone</th>
-                                <th colspan="4">Actions</th>
+                                <th colspan="3">Actions</th>
                                 
                               </tr>
                             </thead>
@@ -44,10 +48,7 @@
                                 <a class="btn  btn-sm btn-outline-warning" href="{{ route('participants.edit', ['participant' => $participant->id]) }}">Éditer</a>
 
                                     </td>
-                                   <td>
-                                <a class="btn  btn-sm btn-outline-info" href="{{ route('participants.show', ['participant' => $participant->id]) }}">Afficher </a>
-
-                                   </td>
+                                   
                                    <td>
                                        <a class="btn btn-sm btn-outline-primary " target="_blank"
                                     href="{{ route('generate-recu-inscription', ['id'=> $participant->id ]) }}">Recu

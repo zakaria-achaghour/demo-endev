@@ -162,6 +162,9 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
@@ -177,7 +180,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-      
 
     ],
 
@@ -231,6 +233,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
       
 
     ],

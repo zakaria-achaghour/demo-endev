@@ -1,5 +1,6 @@
 <?php
 
+use FontLib\Table\Type\name;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Route;
@@ -57,7 +58,18 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
     Route::resource('/users', 'UsersController')->middleware(['can:user.manage'])->except(['show']);
     Route::get('/attestation', 'UsersController@attestation')->name('attestation')->middleware(['can:session.manage']);
    
-Route::post('/generate_attestation','UsersController@generate_attestation')->name('generate_attestation')->middleware(['can:session.manage']);;
+    Route::post('/generate_attestation','UsersController@generate_attestation')->name('generate_attestation')->middleware(['can:session.manage']);;
+    Route::get('/exporter_view/{id}', 'SessionController@exporter_view')->name('exporter_view');
     
+
     Route::resource('/sessions', 'SessionController')->middleware(['can:session.manage']);
+    
+    Route::post('/sessions/tableConetnt', 'SessionController@tableContent')->name('sessions.tableContent')->middleware(['can:session.manage']);
+
+
+
+    Route::get('/sessions/encours', 'SessionController@encours')->name('sessions.encours')->middleware(['can:session.manage']);
+    Route::get('/sessions/fini', 'SessionController@fini')->name('sessions.fini')->middleware(['can:session.manage']);
+    Route::get('/sessions/pasencours', 'SessionController@pasencours')->name('sessions.pasencours')->middleware(['can:session.manage']);
+
 });
